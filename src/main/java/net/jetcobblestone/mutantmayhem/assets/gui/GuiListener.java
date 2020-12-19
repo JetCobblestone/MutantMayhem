@@ -15,6 +15,7 @@ public class GuiListener implements Listener{
 	
 	private static GuiManager guiManager = GuiManager.getInstance();
 	
+	
 	@EventHandler
 	public void onGUIClick(InventoryClickEvent event) {
 		final Inventory clickedInventory = event.getClickedInventory();
@@ -48,6 +49,7 @@ public class GuiListener implements Listener{
 			event.setCancelled(true);
 		}
 	}
+	
 	
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {

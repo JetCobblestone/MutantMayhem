@@ -1,5 +1,6 @@
 package net.jetcobblestone.mutantmayhem.assets.gui;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,21 +30,23 @@ public class GUI {
 	}
 	
 	
-	private final Map<Integer, GuiItem> overlay;
+	private Inventory inventory;
 	private ClickEvent guiClickEvent;
+	private final Map<Integer, GuiItem> overlay;
 	private final int rows;
 	private final String name;
-	private Inventory inventory;
 	private final GuiManager guiManager = GuiManager.getInstance();
 	
 	
 	public void runGuiAction(InventoryClickEvent event) {
+		if (guiClickEvent == null) return;
 		guiClickEvent.run(event);
 	}
 	
 	public void clickItem(int slot, InventoryClickEvent event) {
-		if (slot < 0)
-		overlay.get(slot).click(event);
+		final GuiItem guiItem = overlay.get(slot);
+		if (guiItem == null) return;
+		guiItem.click(event);
 	}
 	
 	private Inventory generateInventory() {
@@ -62,6 +65,44 @@ public class GUI {
 		overlay.put(slot, guiItem);
 	}
 	
+	public void addItem(GuiItem guiItem) {
+		if (overlay.size() == 0) {
+			setItem(0, guiItem);
+			return;
+		}
+		
+		final Integer[] slots = overlay.keySet().toArray(new Integer[overlay.size()]);
+		Arrays.sort(slots);
+
+		for (int i = 0; i < slots.length; i++) {
+			//avoiding out of bounds
+			if (i == 0) {
+				
+				if (i == slots.length - 1) {
+					if (slots[i] < rows * 9) {
+						setItem(slots[i] + 1, guiItem);
+					}
+				}
+				
+				//if slot 0 is free
+				if (slots[i] > 0) {
+					setItem(0, guiItem);
+					return;
+				}
+				continue;
+			}
+			
+			//Checks if the difference between the current term and previous term is greater than 1
+			if (slots[i] > slots[i-1] + 1) {
+				setItem(slots[i-1] + 1, guiItem);
+				return;
+			}
+		
+		}
+		
+		Bukkit.getLogger().warning("Item could not be added to GUI " + name);
+	}
+	
 	public GuiItem getItem(int slot) {
 		return overlay.get(slot);
 	}
@@ -71,7 +112,7 @@ public class GUI {
 		if (inventory == null) {
 			inventory = generateInventory();
 		}
-		
+	
 		player.openInventory(inventory);
 		guiManager.addGui(player, this);
 	}

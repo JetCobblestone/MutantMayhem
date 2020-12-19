@@ -1,5 +1,8 @@
 package net.jetcobblestone.mutantmayhem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.Event;
@@ -10,6 +13,7 @@ import net.jetcobblestone.mutantmayhem.assets.classitem.ClassItem;
 import net.jetcobblestone.mutantmayhem.assets.classitem.itemability.Ability;
 import net.jetcobblestone.mutantmayhem.assets.classitem.itemability.Action;
 import net.jetcobblestone.mutantmayhem.assets.classitem.itemability.Check;
+import net.jetcobblestone.mutantmayhem.assets.customclass.CustomClass;
 import net.jetcobblestone.mutantmayhem.assets.util.ItemFactory;
 
 public class TestClass {
@@ -22,15 +26,23 @@ public class TestClass {
 		return instance;
 	}
 	
-	
-	public void createTestItems() {
+	public void createKit() {
+		final List<String> lore = new ArrayList<>();
+		lore.add(ChatColor.RESET + "" + ChatColor.GREEN + "This is a test kit!");
+		
+		final ItemStack icon = ItemFactory.createItem(ChatColor.RED + "Tester", Material.GOLDEN_APPLE, lore);
+		final CustomClass testClass = new CustomClass(ChatColor.RED + "Tester", icon, 10d);
+		
 		final ItemStack item = ItemFactory.createItem(ChatColor.RED + "Test item", Material.STICK, null);
 		final ClassItem testClassItem = new ClassItem(item);
 		final Ability testRightClick = new Ability("Test right click", 3000, PlayerInteractEvent.class, new TestRightClick(), new rightClickCheck());
 		final Ability testLeftClick = new Ability("Test left click", 5000, PlayerInteractEvent.class, new TestLeftClick(), new leftClickCheck());
 		testClassItem.add(testRightClick);
 		testClassItem.add(testLeftClick);
+		
+		testClass.addItem(0, testClassItem);
 	}
+
 	
 	private class TestRightClick implements Action{
 		public boolean run(Event e) {

@@ -20,6 +20,7 @@ public class CustomClass {
 		this.name = name;
 		this.icon = icon;
 		this.defence = defence;
+		ClassManager.getInstance().addKit(this);
 	}
 	
 	public void addItem(int slot, ClassItem item) {
@@ -41,5 +42,9 @@ public class CustomClass {
 
 	public ItemStack getIcon() {
 		return icon.clone();
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

@@ -8,8 +8,11 @@ import org.bukkit.entity.HumanEntity;
 
 public class GuiManager {
 	
-	private static GuiManager instance;
+	private GuiManager() {
+		guiLink = new HashMap<>();
+	}
 
+	private static GuiManager instance;
 	public static GuiManager getInstance() {
 		if (instance == null) {
 			instance = new GuiManager();
@@ -18,11 +21,8 @@ public class GuiManager {
 	}
 	
 	
-	private GuiManager() {
-		guiLink = new HashMap<>();
-	}
-	
 	private final Map<UUID, GUI> guiLink;
+	
 	
 	protected void addGui(HumanEntity humanEntity, GUI gui) {
 		guiLink.put(humanEntity.getUniqueId(), gui);
