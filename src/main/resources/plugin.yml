@@ -1,5 +1,5 @@
-main: net.jetcobblestone.mutantmayhem.MutantMayhem
-name: "MutantMayhem"
+main: net.jetcobblestone.minigameplugin.MinigamePlugin
+name: "JetsMinigames"
 version: '0.1'
 author: JetCobblestone
 api-version: 1.16
