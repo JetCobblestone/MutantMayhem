@@ -2,16 +2,14 @@ package net.jetcobblestone.minigameplugin.assets.gui;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.function.Consumer;
 
 public class GuiItem {
 	private final ItemStack item;
-	private final ClickEvent clickEvent;
-	
-	public GuiItem(ItemStack item, ClickEvent clickEvent) {
-		final ItemMeta meta = item.getItemMeta();
-		meta.setUnbreakable(true);
-		item.setItemMeta(meta);
+	private final Consumer<InventoryClickEvent> clickEvent;
+
+	public GuiItem(ItemStack item, Consumer<InventoryClickEvent> clickEvent) {
 		this.item = item;
 		this.clickEvent = clickEvent;
 	}
@@ -22,6 +20,11 @@ public class GuiItem {
 	
 	public void click(InventoryClickEvent event) {
 		if (event == null) return;
-		clickEvent.run(event);
+		clickEvent.accept(event);
+	}
+
+	@SuppressWarnings("MethodDoesntCallSuperMethod")
+	public GuiItem clone() {
+		return new GuiItem(item.clone(), clickEvent);
 	}
 }

@@ -1,20 +1,24 @@
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\ItemManager.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\game\kits\Pirate.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\gui\GuiListener.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\gui\GuiItem.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\gui\GuiManager.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\customclass\CustomClass.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\customclass\ClassManager.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\gui\GUI.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\TestCommand.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\itemability\Action.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\util\ItemFactory.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\itemability\Cooldown.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\TestClass.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\itemability\Check.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\commands\KitSelector.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\MutantMayhem.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\itemability\Ability.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\ClassItem.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\classitem\AbilityListener.java
-C:\Users\Owner\Documents\Coding\MC plugins\mutantmayhem\src\main\java\net\jetcobblestone\mutantmayhem\assets\gui\ClickEvent.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\customclass\ClassManager.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\game\kits\Pirate.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\GameMap.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\classitem\itemability\Cooldown.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\customclass\CustomClass.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\commands\StartGame.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\VoidChunkGenerator.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\classitem\ClassItem.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\SettingsListener.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\TestCommand.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\classitem\itemability\Ability.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\Game.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\MapManager.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\classitem\AbilityListener.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\commands\KitSelector.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\GuiItem.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\MinigamePlugin.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhem.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\GuiListener.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\util\ItemFactory.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\GuiManager.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\classitem\ItemManager.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\GUI.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\GameManager.java

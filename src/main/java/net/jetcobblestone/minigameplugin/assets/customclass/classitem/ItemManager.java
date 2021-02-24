@@ -1,4 +1,4 @@
-package net.jetcobblestone.minigameplugin.assets.classitem;
+package net.jetcobblestone.minigameplugin.assets.customclass.classitem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemManager {
-	private static Map<ItemStack, ClassItem> itemMap = new HashMap<ItemStack, ClassItem>();
+	private static final Map<ItemStack, ClassItem> itemMap = new HashMap<>();
 	
 	public static ClassItem classItemFromStack(ItemStack item) {
 		return itemMap.get(item);
@@ -16,7 +16,7 @@ public class ItemManager {
 	}
 	
 	public static ItemStack testGet(int i) {
-		ClassItem[] array = itemMap.values().toArray(new ClassItem[itemMap.size()]);
+		ClassItem[] array = itemMap.values().toArray(new ClassItem[0]);
 		return array[i].getItem();
 	}
 }

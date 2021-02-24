@@ -1,4 +1,4 @@
-package net.jetcobblestone.minigameplugin.assets.classitem;
+package net.jetcobblestone.minigameplugin.assets.customclass.classitem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
-import net.jetcobblestone.minigameplugin.assets.classitem.itemability.Ability;
+import net.jetcobblestone.minigameplugin.assets.customclass.classitem.itemability.Ability;
 
 public class ClassItem {
 	private final Map<Class<? extends Event>, List<Ability>> abilityMap;

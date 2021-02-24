@@ -1,46 +1,53 @@
 package net.jetcobblestone.minigameplugin.assets.gui;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
+@SuppressWarnings("unused")
 public class GUI {
 	
 	public GUI(String name, int rows) {
+		this(name, rows, null);
+	}
+	
+	public GUI(String name, int rows, Consumer<InventoryClickEvent> event) {
 		if (rows > 6 || rows < 0) {
 			Bukkit.getLogger().severe("Tried to create a GUI with an invalid row size - must be between 1 and 6.");
 			rows = 3;
 		}
 		this.rows = rows;
 		this.name = name;
-		
+
 		overlay = new HashMap<>();
-		guiClickEvent = null;
-		
+		guiClickEvent = event;
 	}
-	
-	public GUI(String name, int rows, ClickEvent event) {
-		this(name, rows);
-		this.guiClickEvent = event;
-	}
-	
-	
-	private Inventory inventory;
-	private ClickEvent guiClickEvent;
-	private final Map<Integer, GuiItem> overlay;
-	private final int rows;
-	private final String name;
+
 	private final GuiManager guiManager = GuiManager.getInstance();
+	private Inventory inventory = null;
+	private final Map<Integer, GuiItem> overlay;
+	private final String name;
+	private final int rows;
+	private final Consumer<InventoryClickEvent> guiClickEvent;
 	
-	
+	@SuppressWarnings("MethodDoesntCallSuperMethod")
+	public GUI clone() {
+		GUI clone = new GUI(name, rows, guiClickEvent);
+		for (Integer i : overlay.keySet()) {
+			clone.setItem(i, overlay.get(i).clone());
+		}
+		return clone;
+	}
+
 	public void runGuiAction(InventoryClickEvent event) {
 		if (guiClickEvent == null) return;
-		guiClickEvent.run(event);
+		guiClickEvent.accept(event);
 	}
 	
 	public void clickItem(int slot, InventoryClickEvent event) {
@@ -51,7 +58,6 @@ public class GUI {
 	
 	private Inventory generateInventory() {
 		Inventory inventory = Bukkit.createInventory(null, rows*9, name);
-		
 		inventory.clear();
 		for (Integer slot : overlay.keySet()) {
 			inventory.setItem(slot, overlay.get(slot).getItem());
@@ -61,8 +67,7 @@ public class GUI {
 	}
 
 	
-	public void setItem(int slot, GuiItem guiItem) {
-		overlay.put(slot, guiItem);
+	public void setItem(int slot, GuiItem guiItem) {overlay.put(slot, guiItem);
 	}
 	
 	public void addItem(GuiItem guiItem) {
@@ -71,7 +76,7 @@ public class GUI {
 			return;
 		}
 		
-		final Integer[] slots = overlay.keySet().toArray(new Integer[overlay.size()]);
+		final Integer[] slots = overlay.keySet().toArray(new Integer[0]);
 		Arrays.sort(slots);
 
 		for (int i = 0; i < slots.length; i++) {
@@ -102,7 +107,7 @@ public class GUI {
 		
 		Bukkit.getLogger().warning("Item could not be added to GUI " + name);
 	}
-	
+
 	public GuiItem getItem(int slot) {
 		return overlay.get(slot);
 	}
@@ -116,7 +121,7 @@ public class GUI {
 		player.openInventory(inventory);
 		guiManager.addGui(player, this);
 	}
-	
+
 	public void dupeOpen(Player player) {
 		player.openInventory(generateInventory());
 		guiManager.addGui(player, this);

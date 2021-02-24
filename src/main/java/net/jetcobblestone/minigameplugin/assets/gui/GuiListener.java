@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 //This class is the listener responsible for managing the crate creator GUI
 public class GuiListener implements Listener{
 	
-	private static GuiManager guiManager = GuiManager.getInstance();
+	private static final GuiManager guiManager = GuiManager.getInstance();
 	
 	
 	@EventHandler
@@ -38,7 +38,6 @@ public class GuiListener implements Listener{
 			
 			gui.clickItem(event.getSlot(), event);
 			gui.runGuiAction(event);
-			return;
 		}
 
 	}

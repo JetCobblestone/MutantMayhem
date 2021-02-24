@@ -1,4 +1,4 @@
-package net.jetcobblestone.minigameplugin.assets.classitem.itemability;
+package net.jetcobblestone.minigameplugin.assets.customclass.classitem.itemability;
 
 public class Cooldown {
 	long cooldown;
@@ -15,7 +15,6 @@ public class Cooldown {
 	}
 	
 	public long getTime() {
-		final long difference = System.currentTimeMillis() - creationTime;
-		return difference;
+		return System.currentTimeMillis() - creationTime;
 	}
 }
