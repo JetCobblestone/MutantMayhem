@@ -11,26 +11,30 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class SettingsListener implements Listener {
 
-    private final GameManager gameManager = GameManager.getInstance();
+    private final PlayerManager playerManager;
+
+    public SettingsListener(PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        Game game = gameManager.getGameFromPlayer(event.getPlayer());
-        if (game == null || game.isAllowed(Game.Setting.MINE)) return;
+        GamePlayer gamePlayer = playerManager.getGameFromPlayer(event.getPlayer());
+        if (gamePlayer == null || gamePlayer.isAllowed(GamePlayer.Setting.MINE)) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
-        Game game = gameManager.getGameFromPlayer(event.getPlayer());
-        if (game == null || game.isAllowed(Game.Setting.PLACE)) return;
+        GamePlayer gamePlayer = playerManager.getGameFromPlayer(event.getPlayer());
+        if (gamePlayer == null || gamePlayer.isAllowed(GamePlayer.Setting.PLACE)) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
-        Game game = gameManager.getGameFromPlayer(event.getPlayer());
-        if (game == null || game.isAllowed(Game.Setting.MOVE)) return;
+        GamePlayer gamePlayer = playerManager.getGameFromPlayer(event.getPlayer());
+        if (gamePlayer == null || gamePlayer.isAllowed(GamePlayer.Setting.MOVE)) return;
         event.setCancelled(true);
     }
 
@@ -40,8 +44,8 @@ public class SettingsListener implements Listener {
         if (!(entity instanceof Player)) return;
         Player player = (Player) entity;
 
-        Game game = gameManager.getGameFromPlayer(player);
-        if (game == null || (game.isAllowed(Game.Setting.FALLDAMAGE) || !(event.getCause() == EntityDamageEvent.DamageCause.FALL))) return;
+        GamePlayer gamePlayer = playerManager.getGameFromPlayer(player);
+        if (gamePlayer == null || (gamePlayer.isAllowed(GamePlayer.Setting.FALLDAMAGE) || !(event.getCause() == EntityDamageEvent.DamageCause.FALL))) return;
         event.setCancelled(true);
     }
 }

@@ -1,7 +1,7 @@
 package net.jetcobblestone.minigameplugin.commands;
 
-import net.jetcobblestone.minigameplugin.assets.game.Game;
-import net.jetcobblestone.minigameplugin.assets.game.GameManager;
+import net.jetcobblestone.minigameplugin.assets.game.GamePlayer;
+import net.jetcobblestone.minigameplugin.assets.game.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,6 +11,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class StopGame implements CommandExecutor {
+
+    private final PlayerManager playerManager;
+
+    public StopGame(PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command arg1, @NotNull String arg2, @NotNull String[] arg3) {
 
@@ -19,12 +26,12 @@ public class StopGame implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
-        Game game = GameManager.getInstance().getGameFromPlayer(player);
-        if (game == null) {
+        GamePlayer gamePlayer = playerManager.getGameFromPlayer(player);
+        if (gamePlayer == null || gamePlayer.getGame() == null) {
             player.sendMessage(ChatColor.RED + "You are not in a game");
             return false;
         }
-        game.forceStop();
+        gamePlayer.getGame().forceStop();
         return true;
     }
 }

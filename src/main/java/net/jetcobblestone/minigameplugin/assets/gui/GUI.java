@@ -12,12 +12,21 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class GUI {
-	
-	public GUI(String name, int rows) {
-		this(name, rows, null);
+
+	private final GuiManager guiManager;
+	private Inventory inventory = null;
+	private final Map<Integer, GuiItem> overlay;
+	private final String name;
+	private final int rows;
+	private final Consumer<InventoryClickEvent> guiClickEvent;
+
+	public GUI(String name, int rows, GuiManager guiManager) {
+		this(name, rows, null, guiManager);
 	}
 	
-	public GUI(String name, int rows, Consumer<InventoryClickEvent> event) {
+	public GUI(String name, int rows, Consumer<InventoryClickEvent> event, GuiManager guiManager) {
+		this.guiManager = guiManager;
+
 		if (rows > 6 || rows < 0) {
 			Bukkit.getLogger().severe("Tried to create a GUI with an invalid row size - must be between 1 and 6.");
 			rows = 3;
@@ -28,17 +37,10 @@ public class GUI {
 		overlay = new HashMap<>();
 		guiClickEvent = event;
 	}
-
-	private final GuiManager guiManager = GuiManager.getInstance();
-	private Inventory inventory = null;
-	private final Map<Integer, GuiItem> overlay;
-	private final String name;
-	private final int rows;
-	private final Consumer<InventoryClickEvent> guiClickEvent;
 	
 	@SuppressWarnings("MethodDoesntCallSuperMethod")
 	public GUI clone() {
-		GUI clone = new GUI(name, rows, guiClickEvent);
+		GUI clone = new GUI(name, rows, guiClickEvent, guiManager);
 		for (Integer i : overlay.keySet()) {
 			clone.setItem(i, overlay.get(i).clone());
 		}
@@ -111,8 +113,7 @@ public class GUI {
 	public GuiItem getItem(int slot) {
 		return overlay.get(slot);
 	}
-	
-	
+
 	public void open(Player player) {
 		if (inventory == null) {
 			inventory = generateInventory();

@@ -6,9 +6,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.jetcobblestone.minigameplugin.assets.customclass.ClassManager;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.KitRegister;
 
 public class KitSelector implements CommandExecutor {
+
+	private final KitRegister kitRegister;
+
+	public KitSelector(KitRegister kitRegister) {
+		this.kitRegister = kitRegister;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
@@ -17,7 +23,7 @@ public class KitSelector implements CommandExecutor {
 			return false;
 		}
 		Player player = (Player) sender;
-		ClassManager.getInstance().getGui().dupeOpen(player);
+		kitRegister.getGui().dupeOpen(player);
 		return true;
 	}
 

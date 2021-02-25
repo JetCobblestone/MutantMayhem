@@ -7,22 +7,9 @@ import java.util.UUID;
 import org.bukkit.entity.HumanEntity;
 
 public class GuiManager {
-	
-	private GuiManager() {
-		guiLink = new HashMap<>();
-	}
 
-	private static GuiManager instance;
-	public static GuiManager getInstance() {
-		if (instance == null) {
-			instance = new GuiManager();
-		}
-		return instance;
-	}
-	
-	
-	private final Map<UUID, GUI> guiLink;
-	
+
+	private final Map<UUID, GUI> guiLink = new HashMap<>();
 	
 	protected void addGui(HumanEntity humanEntity, GUI gui) {
 		guiLink.put(humanEntity.getUniqueId(), gui);

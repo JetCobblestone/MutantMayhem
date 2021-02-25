@@ -14,18 +14,9 @@ import java.util.logging.Logger;
 
 public class MapManager {
 
-    // == Start of Singleton ==
-
-    private static MapManager instance;
-    private MapManager(){}
-    public static MapManager getInstance() {
-        if (instance == null){
-            instance = new MapManager();
-        }
-        return instance;
+    public MapManager(MinigamePlugin plugin) {
+        this.plugin = plugin;
     }
-
-    // == End of Singleton ==//
 
     private final Map<Class<? extends Game>, List<GameMap>> gameMapMap = new HashMap<>();
 
@@ -36,7 +27,7 @@ public class MapManager {
 
 
     private final Logger logger = Bukkit.getLogger();
-    private final JavaPlugin plugin = MinigamePlugin.getInstance();
+    private final MinigamePlugin plugin;
 
     private Class<? extends Game> gameClass = null;
     private String name = null;
