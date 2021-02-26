@@ -1,7 +1,9 @@
-package net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem;
+package net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.itemability;
 
 import net.jetcobblestone.minigameplugin.assets.game.GamePlayer;
 import net.jetcobblestone.minigameplugin.assets.game.PlayerManager;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.ClassItem;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.ItemManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

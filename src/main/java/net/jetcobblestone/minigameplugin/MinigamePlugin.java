@@ -4,7 +4,7 @@ import net.jetcobblestone.minigameplugin.assets.events.OnTickEvent;
 import net.jetcobblestone.minigameplugin.assets.game.PlayerManager;
 import net.jetcobblestone.minigameplugin.assets.gui.GuiManager;
 import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.KitRegister;
-import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.AbilityListener;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.itemability.AbilityListener;
 import net.jetcobblestone.minigameplugin.assets.game.map.MapManager;
 import net.jetcobblestone.minigameplugin.assets.gui.GuiListener;
 import net.jetcobblestone.minigameplugin.commands.StartGame;

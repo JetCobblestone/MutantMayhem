@@ -1,7 +1,6 @@
 net\jetcobblestone\minigameplugin\assets\gui\GuiManager.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\KitRegister.class
 net\jetcobblestone\minigameplugin\assets\util\ItemFactory.class
-net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhem$1.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\AbstractKit.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\kits\Pirate.class
 net\jetcobblestone\minigameplugin\MinigamePlugin$1.class
@@ -9,6 +8,7 @@ net\jetcobblestone\minigameplugin\assets\gui\GUI.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\classitem\ItemManager.class
 net\jetcobblestone\minigameplugin\assets\game\map\GameMap.class
 net\jetcobblestone\minigameplugin\assets\events\OnTickEvent.class
+net\jetcobblestone\minigameplugin\assets\util\Cooldown.class
 net\jetcobblestone\minigameplugin\commands\StopGame.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhem.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\classitem\itemability\Ability.class
@@ -26,7 +26,7 @@ net\jetcobblestone\minigameplugin\assets\gui\GuiListener.class
 net\jetcobblestone\minigameplugin\assets\game\PlayerManager.class
 net\jetcobblestone\minigameplugin\MinigamePlugin.class
 net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhemPlayer.class
-net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\classitem\AbilityListener.class
+net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhem$GameState.class
 net\jetcobblestone\minigameplugin\assets\game\GamePlayer.class
 net\jetcobblestone\minigameplugin\commands\Warp.class
-net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\classitem\itemability\Cooldown.class
+net\jetcobblestone\minigameplugin\games\mutantmayhem\kits\classitem\itemability\AbilityListener.class

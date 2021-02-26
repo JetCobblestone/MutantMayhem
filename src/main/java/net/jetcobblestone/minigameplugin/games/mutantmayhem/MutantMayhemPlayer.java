@@ -14,4 +14,7 @@ public class MutantMayhemPlayer extends GamePlayer {
         super(player, game, playerManager);
     }
 
+    public AbstractKit getKit() {
+        return kit;
+    }
 }

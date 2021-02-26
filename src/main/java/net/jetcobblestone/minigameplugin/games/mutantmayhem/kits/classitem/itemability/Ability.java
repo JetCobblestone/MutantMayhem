@@ -2,8 +2,10 @@ package net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.item
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Predicate;
 
+import net.jetcobblestone.minigameplugin.assets.util.Cooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.decimal4j.util.DoubleRounder;
@@ -13,7 +15,7 @@ public class Ability {
 	final String name;
 	final Predicate<Event> action;
 	final long time;
-	final Map<Player, Cooldown> cooldowns = new HashMap<>();
+	final Map<UUID, Cooldown> cooldowns = new HashMap<>();
 	final Class<? extends Event> eventClass;
 	final Predicate<Event> check;
 
@@ -31,27 +33,35 @@ public class Ability {
 
 	public void run(Player player, Event event) {
 		if (check != null && !check.test(event)) return;
-
-		Cooldown cooldown = cooldowns.get(player);
+		UUID uuid = player.getUniqueId();
+		Cooldown cooldown = cooldowns.get(uuid);
 
 		if (cooldown != null && cooldown.isFinished()) {
-			cooldowns.remove(player);
+			cooldowns.remove(uuid);
 			cooldown = null;
 		}
 
 		if (cooldown == null) {
 			if(action.test(event)) {
-				cooldowns.put(player, new Cooldown(time));
+				cooldowns.put(uuid, new Cooldown(time));
 			}
 			return;
 		}
 
-		final double remaining = ((double)(time - cooldown.getTime()))/1000;
+		final double remaining = (double) cooldown.getRemainingTime()/1000;
 		final double rounded = DoubleRounder.round(remaining, 1);
 		player.sendMessage(name + " is on cooldown for " + rounded + " seconds");
 	}
 
+	public Cooldown getCooldown(Player player) {
+		return cooldowns.get(player.getUniqueId());
+	}
+
 	public Class<? extends Event> getEvent() {
 		return eventClass;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

@@ -1,4 +1,4 @@
-package net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.itemability;
+package net.jetcobblestone.minigameplugin.assets.util;
 
 public class Cooldown {
 	long cooldown;
@@ -13,8 +13,12 @@ public class Cooldown {
 		final long difference = System.currentTimeMillis() - creationTime;
 		return difference > cooldown;
 	}
-	
+
+	public long getRemainingTime() {
+		return cooldown - (System.currentTimeMillis() - creationTime);
+	}
+
 	public long getTime() {
-		return System.currentTimeMillis() - creationTime;
+		return cooldown;
 	}
 }

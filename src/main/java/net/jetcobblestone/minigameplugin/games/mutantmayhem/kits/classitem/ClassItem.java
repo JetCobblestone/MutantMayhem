@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.itemability.Ability;
 
 public class ClassItem {
-	private final Map<Class<? extends Event>, List<Ability>> abilityMap;
+	private final Map<Class<? extends Event>, Ability> abilityMap;
 	private final ItemStack item;
 	
 	public ClassItem(ItemStack item) {
@@ -22,29 +23,33 @@ public class ClassItem {
 	}
 	
 	public void trigger(Player player, Event event) {
-		final List<Ability> abilities = abilityMap.get(event.getClass());
+		final Ability ability = abilityMap.get(event.getClass());
 		
-		if (abilities == null) return;
-		for (Ability ability : abilities) {
-			if (ability.getEvent() == event.getClass()){
-				ability.run(player, event);
-			}
+		if (ability == null) return;
+		if (ability.getEvent() == event.getClass()){
+			ability.run(player, event);
 		}
 	}
 	
 	public void add(Ability ability) {
 		final Class<? extends Event> eventClass = ability.getEvent();
-		List<Ability> abilities = abilityMap.get(eventClass);
+		Ability ability1 = abilityMap.get(eventClass);
 		
-		if (abilities == null) {
-			abilities = new ArrayList<>();
+		if (ability1 != null) {
+			Bukkit.getLogger().severe("Attempted ability override for " + item);
 		}
-		
-		abilities.add(ability);
-		abilityMap.put(eventClass, abilities);
+		abilityMap.put(eventClass, ability);
 	}
 	
 	public ItemStack getItem() {
 		return item.clone();
+	}
+
+	public List<Ability> getAbilities() {
+		List<Ability> abilities = new ArrayList<>();
+		for (Class<? extends Event> eventClass : abilityMap.keySet()) {
+			abilities.add(abilityMap.get(eventClass));
+		}
+		return abilities;
 	}
 }
