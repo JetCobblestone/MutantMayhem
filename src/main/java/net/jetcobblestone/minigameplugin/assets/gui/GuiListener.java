@@ -24,7 +24,7 @@ public class GuiListener implements Listener{
 		final Inventory clickedInventory = event.getClickedInventory();
 		final HumanEntity humanEntity = event.getWhoClicked();
 		final ClickType click = event.getClick();
-		final GUI gui = guiManager.getGui(humanEntity);
+		final Gui gui = guiManager.getGui(humanEntity);
 		
 		if (clickedInventory == null) return;
 		

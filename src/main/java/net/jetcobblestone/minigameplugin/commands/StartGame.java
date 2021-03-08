@@ -2,6 +2,8 @@ package net.jetcobblestone.minigameplugin.commands;
 
 import net.jetcobblestone.minigameplugin.MinigamePlugin;
 import net.jetcobblestone.minigameplugin.games.mutantmayhem.MutantMayhem;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,8 +28,9 @@ public class StartGame implements CommandExecutor {
             new MutantMayhem(plugin.getMapManager().getMaps(MutantMayhem.class).get(0), plugin);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

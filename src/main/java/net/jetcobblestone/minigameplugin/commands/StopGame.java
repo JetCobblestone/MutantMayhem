@@ -1,7 +1,7 @@
 package net.jetcobblestone.minigameplugin.commands;
 
-import net.jetcobblestone.minigameplugin.assets.game.GamePlayer;
-import net.jetcobblestone.minigameplugin.assets.game.PlayerManager;
+import net.jetcobblestone.minigameplugin.assets.game.player.GamePlayer;
+import net.jetcobblestone.minigameplugin.assets.game.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

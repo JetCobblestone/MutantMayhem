@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.classitem.ItemManager;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kitsystem.classitem.ItemManager;
 
 public class TestCommand implements CommandExecutor {
 	@Override

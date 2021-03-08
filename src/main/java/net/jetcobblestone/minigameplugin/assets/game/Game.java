@@ -2,7 +2,9 @@ package net.jetcobblestone.minigameplugin.assets.game;
 
 
 import net.jetcobblestone.minigameplugin.assets.game.map.GameMap;
+import net.jetcobblestone.minigameplugin.assets.game.player.GamePlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,8 @@ public abstract class Game {
 
     public Game(GameMap gameMap) {
         this.gameMap = gameMap;
-
     }
+
 
     public void forceStop() {
         for (GamePlayer gamePlayer : gamePlayerList) {
@@ -31,4 +33,9 @@ public abstract class Game {
         }
     }
 
+    public int size() {
+        return gamePlayerList.size();
+    }
+
+    public abstract void addPlayer(Player player);
 }

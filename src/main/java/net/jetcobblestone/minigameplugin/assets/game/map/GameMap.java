@@ -83,6 +83,7 @@ public class GameMap {
 
         //creates the copy
         final WorldCreator creator = new WorldCreator(newName);
+        creator.generator(new VoidChunkGenerator());
         return Bukkit.createWorld(creator);
     }
 }

@@ -9,13 +9,13 @@ import org.bukkit.entity.HumanEntity;
 public class GuiManager {
 
 
-	private final Map<UUID, GUI> guiLink = new HashMap<>();
+	private final Map<UUID, Gui> guiLink = new HashMap<>();
 	
-	protected void addGui(HumanEntity humanEntity, GUI gui) {
+	protected void addGui(HumanEntity humanEntity, Gui gui) {
 		guiLink.put(humanEntity.getUniqueId(), gui);
 	}
 	
-	public GUI getGui(HumanEntity humanEntity) {
+	public Gui getGui(HumanEntity humanEntity) {
 		return guiLink.get(humanEntity.getUniqueId());
 	}
 	

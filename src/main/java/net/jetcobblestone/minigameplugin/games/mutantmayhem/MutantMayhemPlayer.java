@@ -1,20 +1,38 @@
 package net.jetcobblestone.minigameplugin.games.mutantmayhem;
 
-import net.jetcobblestone.minigameplugin.assets.game.GamePlayer;
-import net.jetcobblestone.minigameplugin.assets.game.PlayerManager;
-import net.jetcobblestone.minigameplugin.games.mutantmayhem.kits.AbstractKit;
+import lombok.Getter;
+import net.jetcobblestone.minigameplugin.assets.customdamage.DamageablePlayer;
+import net.jetcobblestone.minigameplugin.assets.game.player.GamePlayer;
+import net.jetcobblestone.minigameplugin.assets.game.player.PlayerManager;
+import net.jetcobblestone.minigameplugin.assets.util.Pair;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kitsystem.AbstractKit;
 import net.jetcobblestone.minigameplugin.assets.game.Game;
-import org.bukkit.entity.Player;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kitsystem.classitem.ClassItem;
+import net.jetcobblestone.minigameplugin.games.mutantmayhem.kitsystem.classitem.itemability.Ability;
+import org.bukkit.event.Listener;
 
-public class MutantMayhemPlayer extends GamePlayer {
+import java.util.HashMap;
+import java.util.Map;
 
-    private AbstractKit kit;
+public class MutantMayhemPlayer extends GamePlayer implements Listener {
 
-    public MutantMayhemPlayer(Player player, Game game, PlayerManager playerManager) {
-        super(player, game, playerManager);
+    @Getter private AbstractKit kit;
+    @Getter private final Map<ClassItem, Pair<Ability, Boolean>> abilityCooldownCache = new HashMap<>();
+    @Getter private int kills = 0;
+    @Getter private final DamageablePlayer damageablePlayer;
+
+    public MutantMayhemPlayer(DamageablePlayer damageablePlayer, Game game, PlayerManager playerManager) {
+        super(damageablePlayer.getLivingEntity(), game, playerManager);
+        this.damageablePlayer = damageablePlayer;
     }
 
-    public AbstractKit getKit() {
-        return kit;
+    public void makeKill() {
+        kills++;
     }
+
+    public void setKit(AbstractKit kit) {
+        this.kit = kit;
+    }
+
+
 }
