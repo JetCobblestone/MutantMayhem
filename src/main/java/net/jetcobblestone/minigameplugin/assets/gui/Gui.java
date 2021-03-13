@@ -111,13 +111,21 @@ public class Gui {
 		Bukkit.getLogger().warning("Item could not be added to GUI " + name);
 	}
 
-	public void addAll(Map<Integer, GuiItem> itemMap) {
+	public void setMap(Map<Integer, GuiItem> itemMap) {
 		overlay.clear();
 		overlay.putAll(itemMap);
 	}
 
 	public GuiItem getItem(int slot) {
 		return overlay.get(slot);
+	}
+
+	public void remove(GuiItem guiItem) {
+		for (Map.Entry<Integer, GuiItem> entry : overlay.entrySet()) {
+			if (guiItem.equals(guiItem)) {
+
+			}
+		}
 	}
 
 	public void open(Player player) {

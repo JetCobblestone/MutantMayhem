@@ -61,7 +61,7 @@ public class PersonalisedGui {
 
     public void addExcept(GuiItem guiItem, Player player) {
         for (Map.Entry<Player, Gui> entry : guiMap.entrySet()) {
-            if (player == entry.getKey()) continue;
+            if (player.equals(entry.getKey())) continue;
             entry.getValue().addItem(guiItem);
         }
         defaultGui.addItem(guiItem);

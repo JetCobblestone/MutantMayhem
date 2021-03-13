@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class MutantMayhemFactory extends GameFactory<MutantMayhem> {
 
     final ItemStack createGameIcon = ItemFactory.createItem(name, Material.IRON_AXE, Arrays.asList(ChatColor.GRAY + "Fight in epic fashion"));
-    final ItemStack joinGameIcon = ItemFactory.createItem(name, Material.IRON_AXE);
+    final ItemStack joinGameIcon = ItemFactory.createItem(name, Material.IRON_AXE, Arrays.asList("Wow amazing lore!"));
 
     public MutantMayhemFactory(String name) {
         super(name);
@@ -32,12 +32,10 @@ public class MutantMayhemFactory extends GameFactory<MutantMayhem> {
     }
 
     public ItemStack getAddGameIcon() {
-        return createGameIcon;
+        return createGameIcon.clone();
     }
 
     public ItemStack getJoinGameIcon(Game game) {
-        final MutantMayhem mutantMayhem = (MutantMayhem) game;
-
-        return joinGameIcon;
+        return joinGameIcon.clone();
     }
 }

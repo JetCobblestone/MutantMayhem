@@ -22,7 +22,7 @@ public class GameManager {
 
     private final MinigamePlugin plugin;
     private final GuiManager guiManager;
-    private final HashMap<Game, Pair<Player, GuiItem>> gameList = new HashMap<>();
+    private final HashMap<Game, Pair<Player, Pair<GuiItem, GuiItem>>> gameList = new HashMap<>();
     private final Gui gameMenu;
     private final Gui newGameMenu;
     private final PersonalisedGui pendingGames;
@@ -44,37 +44,69 @@ public class GameManager {
            final Player player = (Player) event.getWhoClicked();
            newGameMenu.dupeOpen(player);
         });
+        gameMenu.addItem(newGame);
+
+        final ItemStack viewGameStack = ItemFactory.createItem(
+                ChatColor.GREEN + "View games",
+                Material.ORANGE_WOOL,
+                Collections.singletonList(ChatColor.GRAY + "Click to create a game"));
+
+        final GuiItem viewGame = new GuiItem(viewGameStack, event -> {
+            final Player player = (Player) event.getWhoClicked();
+            pendingGames.open(player);
+        });
+        gameMenu.addItem(viewGame);
     }
 
     public void registerGame(Class<? extends Game> gameClass, GameFactory<? extends Game> factory) {
         gameClassList.add(gameClass);
         gameRegister.put(gameClass, factory);
+        addGame(gameClass);
     }
 
-    public void addGames() {
-        for (Class<? extends Game> gameClass : gameClassList) {
-            final GameFactory<? extends Game> factory = gameRegister.get(gameClass);
+    public void addGame(Class<? extends Game> gameClass) {
+        final GameFactory<? extends Game> factory = gameRegister.get(gameClass);
 
-            final GuiItem gameIcon = new GuiItem(factory.getAddGameIcon(), event -> {
-                final Player player = (Player) event.getWhoClicked();
-                createGame(factory, player);
-            });
-        }
+        final GuiItem gameIcon = new GuiItem(factory.getAddGameIcon(), event -> {
+            final Player player = (Player) event.getWhoClicked();
+            createGame(factory, player);
+        });
+
+        newGameMenu.addItem(gameIcon);
     }
 
-    private void createGame(GameFactory<? extends Game> factory, Player player) {
+    public Gui getGameMenu() {
+        return gameMenu;
+    }
+
+    private void createGame(GameFactory<? extends Game> factory, Player creator) {
         final Game game = factory.createInstance(plugin.getMapManager().getMaps(MutantMayhem.class).get(0), plugin);
 
-        game.addPlayer(player);
-
-        update(factory, game);
-    }
-
-    private void update(GameFactory<? extends Game> factory, Game game) {
-        GuiItem display = new GuiItem(factory.getJoinGameIcon(game), event -> {
+        final ItemStack icon = factory.getJoinGameIcon(game);
+        GuiItem display = new GuiItem(icon, event -> {
             Player clicker = (Player) event.getWhoClicked();
             game.addPlayer(clicker);
             update(factory, game);
         });
+
+        final List<String> specificLore = new ArrayList<>(Objects.requireNonNull(Objects.requireNonNull(icon.getItemMeta()).getLore()));
+
+        specificLore.addAll(Arrays.asList(
+               ChatColor.GOLD + "This is your game! Click to edit."
+        ));
+
+        final ItemStack creatorSpecificStack = ItemFactory.setItemMeta(icon, specificLore);
+        final GuiItem creatorSpecific = new GuiItem(creatorSpecificStack, event -> {
+            creator.sendMessage("Edit menu!");
+        });
+
+        gameList.put(game, new Pair<>(creator, new Pair<>(display, creatorSpecific)));
+        pendingGames.addExcept(display, creator);
+        pendingGames.addSpecific(creatorSpecific, creator);
+        game.addPlayer(creator);
+    }
+
+    //
+    private void update(GameFactory<? extends Game> factory, Game game) {
     }
 }
