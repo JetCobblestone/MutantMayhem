@@ -1,6 +1,7 @@
 package net.jetcobblestone.minigameplugin.assets.gui;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
@@ -55,12 +56,16 @@ public class GuiListener implements Listener{
 	
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {
-		guiManager.clearPlayer(event.getPlayer());
+		final HumanEntity humanEntity = event.getPlayer();
+		guiManager.getGui(humanEntity).removeViewer(humanEntity);
+		guiManager.clearPlayer(humanEntity);
 	}
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
-		guiManager.clearPlayer(event.getPlayer());
+		final HumanEntity humanEntity = event.getPlayer();
+		guiManager.getGui(humanEntity).removeViewer(humanEntity);
+		guiManager.clearPlayer(humanEntity);
 	}
 }
 

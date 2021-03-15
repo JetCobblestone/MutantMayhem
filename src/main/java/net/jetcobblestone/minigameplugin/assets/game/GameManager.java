@@ -1,35 +1,43 @@
 package net.jetcobblestone.minigameplugin.assets.game;
 
+import com.google.common.collect.ImmutableSet;
 import net.jetcobblestone.minigameplugin.MinigamePlugin;
+import net.jetcobblestone.minigameplugin.assets.game.factory.GameFactory;
+import net.jetcobblestone.minigameplugin.assets.game.factory.GameRegister;
+import net.jetcobblestone.minigameplugin.assets.game.factory.GameRegisterEvent;
 import net.jetcobblestone.minigameplugin.assets.gui.Gui;
 import net.jetcobblestone.minigameplugin.assets.gui.GuiItem;
 import net.jetcobblestone.minigameplugin.assets.gui.GuiManager;
 import net.jetcobblestone.minigameplugin.assets.gui.PersonalisedGui;
 import net.jetcobblestone.minigameplugin.assets.util.ItemFactory;
 import net.jetcobblestone.minigameplugin.assets.util.Pair;
-import net.jetcobblestone.minigameplugin.games.mutantmayhem.MutantMayhem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class GameManager {
+public class GameManager implements Listener {
 
-    private final Set<Class<? extends Game>> gameClassList = new HashSet();
-    private Map<Class<? extends Game>, GameFactory<? extends Game>> gameRegister = new HashMap<>();
+    private final GameRegister gameRegister;
 
-    private final MinigamePlugin plugin;
-    private final GuiManager guiManager;
-    private final HashMap<Game, Pair<Player, Pair<GuiItem, GuiItem>>> gameList = new HashMap<>();
+    private final HashMap<Lobby, Pair<GuiItem, GuiItem>> lobbyMap = new HashMap<>();
+
     private final Gui gameMenu;
     private final Gui newGameMenu;
     private final PersonalisedGui pendingGames;
 
+    //=======================================================================================================
+
     public GameManager(MinigamePlugin plugin) {
-        this.plugin = plugin;
-        this.guiManager = plugin.getGuiManager();
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
+        GuiManager guiManager = plugin.getGuiManager();
+        this.gameRegister = plugin.getGameRegister();
         this.gameMenu = new Gui(ChatColor.GOLD + "Game Menu", 1, guiManager);
         this.newGameMenu = new Gui(ChatColor.GOLD + "Create new game", 3, guiManager);
         this.pendingGames = new PersonalisedGui(ChatColor.GOLD + "View games", 3, guiManager);
@@ -58,18 +66,17 @@ public class GameManager {
         gameMenu.addItem(viewGame);
     }
 
-    public void registerGame(Class<? extends Game> gameClass, GameFactory<? extends Game> factory) {
-        gameClassList.add(gameClass);
-        gameRegister.put(gameClass, factory);
-        addGame(gameClass);
-    }
+    //=======================================================================================================
 
-    public void addGame(Class<? extends Game> gameClass) {
-        final GameFactory<? extends Game> factory = gameRegister.get(gameClass);
+    @EventHandler
+    public void addGame(GameRegisterEvent registerEvent) {
+        final GameFactory<? extends Game> factory = gameRegister.getFactory(registerEvent.getGameClass());
 
         final GuiItem gameIcon = new GuiItem(factory.getAddGameIcon(), event -> {
             final Player player = (Player) event.getWhoClicked();
-            createGame(factory, player);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+            player.sendMessage("You started a game of " + factory.getName());
+            createLobby(factory, player);
         });
 
         newGameMenu.addItem(gameIcon);
@@ -79,34 +86,43 @@ public class GameManager {
         return gameMenu;
     }
 
-    private void createGame(GameFactory<? extends Game> factory, Player creator) {
-        final Game game = factory.createInstance(plugin.getMapManager().getMaps(MutantMayhem.class).get(0), plugin);
+    private void createLobby(GameFactory<? extends Game> factory, Player creator) {
+        final Lobby lobby = factory.createNewLobby(creator);
+        final ItemStack icon = factory.getJoinGameIcon(lobby);
 
-        final ItemStack icon = factory.getJoinGameIcon(game);
+        //General Display
         GuiItem display = new GuiItem(icon, event -> {
-            Player clicker = (Player) event.getWhoClicked();
-            game.addPlayer(clicker);
-            update(factory, game);
+            final Player clicker = (Player) event.getWhoClicked();
+            if (lobby.hasPlayer(clicker)) {
+                clicker.playSound(clicker.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+                clicker.sendMessage(ChatColor.RED + "You are already in this game");
+            }
+            else {
+                lobby.addPlayer(clicker);
+                clicker.playSound(clicker.getLocation(), Sound.ENTITY_VILLAGER_YES, 1, 1);
+                clicker.sendMessage(ChatColor.GOLD + "You joined " + lobby.getCreator().getName() + "'s game");
+            }
         });
 
+        //Creator specific display
         final List<String> specificLore = new ArrayList<>(Objects.requireNonNull(Objects.requireNonNull(icon.getItemMeta()).getLore()));
-
-        specificLore.addAll(Arrays.asList(
-               ChatColor.GOLD + "This is your game! Click to edit."
+        specificLore.addAll(Collections.singletonList(
+                ChatColor.GOLD + "This is your game! Click to force start!."
         ));
 
         final ItemStack creatorSpecificStack = ItemFactory.setItemMeta(icon, specificLore);
         final GuiItem creatorSpecific = new GuiItem(creatorSpecificStack, event -> {
-            creator.sendMessage("Edit menu!");
+            lobby.start();
         });
 
-        gameList.put(game, new Pair<>(creator, new Pair<>(display, creatorSpecific)));
-        pendingGames.addExcept(display, creator);
+        lobbyMap.put(lobby, new Pair<>(display, creatorSpecific));
         pendingGames.addSpecific(creatorSpecific, creator);
-        game.addPlayer(creator);
+        pendingGames.addItem(display, ImmutableSet.of(creator));
     }
 
-    //
-    private void update(GameFactory<? extends Game> factory, Game game) {
+    public void removeLobby(Lobby lobby) {
+        final Pair<GuiItem, GuiItem> pair = lobbyMap.get(lobby);
+        pendingGames.removeItem(pair.getLeft(), null);
+        pendingGames.removeItem(pair.getRight(), null);
     }
 }

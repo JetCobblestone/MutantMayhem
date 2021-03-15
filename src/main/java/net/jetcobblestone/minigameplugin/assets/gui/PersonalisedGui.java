@@ -1,10 +1,13 @@
 package net.jetcobblestone.minigameplugin.assets.gui;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PersonalisedGui {
 
@@ -59,11 +62,27 @@ public class PersonalisedGui {
         getGui(player).addItem(guiItem);
     }
 
-    public void addExcept(GuiItem guiItem, Player player) {
-        for (Map.Entry<Player, Gui> entry : guiMap.entrySet()) {
-            if (player.equals(entry.getKey())) continue;
-            entry.getValue().addItem(guiItem);
+    public void addItem(GuiItem guiItem, Set<Player> exceptions) {
+        if (exceptions != null) {
+            for (Map.Entry<Player, Gui> entry : guiMap.entrySet()) {
+                if (exceptions.contains(entry.getKey())) {
+                    continue;
+                }
+                entry.getValue().addItem(guiItem);
+            }
         }
+
         defaultGui.addItem(guiItem);
+    }
+
+    public void removeItem(GuiItem guiItem, Set<Player> exceptions) {
+        for (Map.Entry<Player, Gui> entry : guiMap.entrySet()) {
+            if (exceptions != null && exceptions.contains(entry.getKey())) {
+                continue;
+            }
+            entry.getValue().remove(guiItem);
+        }
+
+        defaultGui.remove(guiItem);
     }
 }

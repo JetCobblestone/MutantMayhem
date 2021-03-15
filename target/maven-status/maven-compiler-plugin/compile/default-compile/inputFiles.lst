@@ -1,11 +1,14 @@
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\kitsystem\classitem\itemability\Ability.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\map\GameMap.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\factory\GameRegister.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\kitsystem\classitem\ClassItem.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\customdamage\Damager.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\PersonalisedGui.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\util\Cooldown.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\Lobby.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\commands\StopGame.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\kitsystem\AbstractKit.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\factory\GameFactory.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\player\SettingsListener.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\commands\KitSelector.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\map\MapManager.java
@@ -19,7 +22,6 @@ C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\Game.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\kitsystem\KitRegister.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\MutantMayhemFactory.java
-C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\GameFactory.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\util\Pair.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\games\mutantmayhem\kitsystem\kits\Pirate.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\customdamage\DamageableEntity.java
@@ -35,6 +37,7 @@ C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\events\CustomDeathEvent.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\events\OnTickEvent.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\player\PlayerManager.java
+C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\game\factory\GameRegisterEvent.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\util\ItemFactory.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\GuiManager.java
 C:\Users\j4wai\Documents\Coding\Minecraft\Plugins\MutantMayhem\src\main\java\net\jetcobblestone\minigameplugin\assets\gui\Gui.java

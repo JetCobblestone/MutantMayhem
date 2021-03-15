@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.jetcobblestone.minigameplugin.assets.customdamage.DamageManager;
 import net.jetcobblestone.minigameplugin.assets.events.OnTickEvent;
 import net.jetcobblestone.minigameplugin.assets.game.GameManager;
+import net.jetcobblestone.minigameplugin.assets.game.factory.GameRegister;
 import net.jetcobblestone.minigameplugin.assets.game.player.PlayerManager;
 import net.jetcobblestone.minigameplugin.assets.gui.GuiManager;
 import net.jetcobblestone.minigameplugin.games.mutantmayhem.MutantMayhem;
@@ -29,19 +30,22 @@ public class MinigamePlugin extends JavaPlugin {
 
 	@Getter private GuiManager guiManager;
 	@Getter private MapManager mapManager;
-	@Getter private PlayerManager playerManager;
-	@Getter private KitRegister kitRegister;
-	@Getter private DamageManager damageManager;
+	@Getter private GameRegister gameRegister;
 	@Getter private GameManager gameManager;
+	@Getter private PlayerManager playerManager;
+	@Getter private DamageManager damageManager;
+	@Getter private KitRegister kitRegister;
+
 
 	@Override
 	public void onEnable(){
 		guiManager = new GuiManager();
 		mapManager = new MapManager(this);
-		playerManager = new PlayerManager(guiManager);
-		kitRegister = new KitRegister(guiManager);
-		damageManager = new DamageManager(this);
+		gameRegister = new GameRegister();
 		gameManager = new GameManager(this);
+		playerManager = new PlayerManager(guiManager);
+		damageManager = new DamageManager(this);
+		kitRegister = new KitRegister(guiManager);
 
 		//Reads maps
 		if (!mapManager.readMaps()){
@@ -86,6 +90,6 @@ public class MinigamePlugin extends JavaPlugin {
 	}
 
 	private void registerGames() {
-		gameManager.registerGame(MutantMayhem.class, new MutantMayhemFactory(ChatColor.RED + "Mutant Mayhem"));
+		gameRegister.registerGame(MutantMayhem.class, new MutantMayhemFactory(ChatColor.RED + "Mutant Mayhem", this));
 	}
 }

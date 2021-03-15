@@ -1,24 +1,24 @@
 package net.jetcobblestone.minigameplugin.assets.gui;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class Gui {
 
 	private final GuiManager guiManager;
-	private Inventory inventory = null;
-	private final Map<Integer, GuiItem> overlay;
 	private final String name;
 	private final int rows;
+	private final Map<Integer, GuiItem> overlay = new HashMap<>();;
 	private final Consumer<InventoryClickEvent> guiClickEvent;
+	private final HashSet<HumanEntity> viewers = new HashSet<>();
+	private Inventory inventory = null;
 
 	public Gui(String name, int rows, GuiManager guiManager) {
 		this(name, rows, null, guiManager);
@@ -34,7 +34,6 @@ public class Gui {
 		this.rows = rows;
 		this.name = name;
 
-		overlay = new HashMap<>();
 		guiClickEvent = event;
 	}
 	
@@ -71,6 +70,7 @@ public class Gui {
 	
 	public void setItem(int slot, GuiItem guiItem) {
 		overlay.put(slot, guiItem);
+		refresh();
 	}
 	
 	public void addItem(GuiItem guiItem) {
@@ -114,6 +114,7 @@ public class Gui {
 	public void setMap(Map<Integer, GuiItem> itemMap) {
 		overlay.clear();
 		overlay.putAll(itemMap);
+		refresh();
 	}
 
 	public GuiItem getItem(int slot) {
@@ -121,20 +122,41 @@ public class Gui {
 	}
 
 	public void remove(GuiItem guiItem) {
-		for (Map.Entry<Integer, GuiItem> entry : overlay.entrySet()) {
-			if (guiItem.equals(guiItem)) {
+		boolean check = false;
+		final List<Integer> toRemove = new ArrayList<>();
 
+		for (Map.Entry<Integer, GuiItem> entry : overlay.entrySet()) {
+			if (guiItem.equals(entry.getValue())) {
+				toRemove.add(entry.getKey());
+				check = true;
+			}
+		}
+
+		for (int slot : toRemove) {
+			overlay.remove(slot);
+		}
+
+		if (check) {
+			refresh();
+		}
+	}
+
+	public void refresh() {
+		if (inventory != null) {
+			inventory = generateInventory();
+			for (HumanEntity humanEntity : viewers) {
+				open(humanEntity);
 			}
 		}
 	}
 
-	public void open(Player player) {
+	public void open(HumanEntity humanEntity) {
 		if (inventory == null) {
 			inventory = generateInventory();
 		}
-	
-		player.openInventory(inventory);
-		guiManager.addGui(player, this);
+		viewers.add(humanEntity);
+		humanEntity.openInventory(inventory);
+		guiManager.addGui(humanEntity, this);
 	}
 
 	public void dupeOpen(Player player) {
@@ -142,5 +164,7 @@ public class Gui {
 		guiManager.addGui(player, this);
 	}
 	
-
+	public void removeViewer(HumanEntity humanEntity) {
+		viewers.remove(humanEntity);
+	}
 }

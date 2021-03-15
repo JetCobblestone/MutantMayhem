@@ -54,7 +54,6 @@ public class GameMap {
 
         //find the next free name
         while (!check) {
-            Bukkit.getLogger().info("" + counter);
             newName = world.getName() + "_temp" + counter;
             final World temp = Bukkit.getWorld(newName);
 

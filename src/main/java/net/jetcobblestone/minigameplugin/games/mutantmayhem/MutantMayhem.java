@@ -44,12 +44,11 @@ public class MutantMayhem extends Game implements Listener {
 
 
     public enum GameState {
-        LOBBY,
         COUNTDOWN,
         FIGHTING,
     }
 
-    public MutantMayhem(GameMap map, MinigamePlugin plugin) throws IOException {
+    public MutantMayhem(GameMap map, HashSet<Player> players, MinigamePlugin plugin) throws IOException {
         super(map);
 
         //Make map copy
@@ -61,30 +60,12 @@ public class MutantMayhem extends Game implements Listener {
 
         playerManager = plugin.getPlayerManager();
         damageManager = plugin.getDamageManager();
-        gameState = GameState.LOBBY;
-    }
 
-    //===UTIL===
-    @Override
-    public void addPlayer(Player player) {
-        gamePlayerList.add(
-                new MutantMayhemPlayer(
-                        new DamageablePlayer(
-                                player,
-                                100,
-                                2,
-                                10,
-                                damageManager),
-                        this, playerManager)
-        );
-    }
-
-    //===MAIN SEQUENCE===
-
-    //Lobby
-    @EventHandler
-    private void lobbyTick(OnTickEvent event) {
-        if (gameState != GameState.LOBBY) return;
+        //Adding people to list
+        for (Player player : players) {
+            final DamageablePlayer damageablePlayer = new DamageablePlayer(player, 20d, 1d, 1d, damageManager);
+            gamePlayerList.add(new MutantMayhemPlayer(damageablePlayer, this, playerManager));
+        }
 
         //Making sure there are fewer people than spawnpoints
         if (spawnpoints.size() < gamePlayerList.size()) {
@@ -116,6 +97,23 @@ public class MutantMayhem extends Game implements Listener {
         updateScoreboard();
         time = System.currentTimeMillis();
     }
+
+    //===UTIL===
+    @Override
+    public void addPlayer(Player player) {
+        gamePlayerList.add(
+                new MutantMayhemPlayer(
+                        new DamageablePlayer(
+                                player,
+                                100,
+                                2,
+                                10,
+                                damageManager),
+                        this, playerManager)
+        );
+    }
+
+    //===MAIN SEQUENCE===
 
     //Countdown timer
     long time = 0;
